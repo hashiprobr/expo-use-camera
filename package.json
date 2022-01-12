@@ -1,0 +1,34 @@
+{
+  "name": "@hashiprobr/expo-use-camera",
+  "version": "1.0.0",
+  "description": "TODO",
+  "keywords": [
+    "JavaScript",
+    "React",
+    "React Hook",
+    "React Native",
+    "Expo",
+    "Camera",
+    "expo-camera"
+  ],
+  "homepage": "https://github.com/hashiprobr/expo-use-camera#readme",
+  "bugs": {
+    "url": "https://github.com/hashiprobr/expo-use-camera/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hashiprobr/expo-use-camera.git"
+  },
+  "license": "ISC",
+  "author": "Marcelo Hashimoto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "@hashiprobr/expo-camera": "^1.0.8",
+    "expo": "^43.0.5",
+    "react": "^17.0.1",
+    "react-native": ">=0.64.3"
+  }
+}
