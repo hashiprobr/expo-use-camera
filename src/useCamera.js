@@ -1,27 +1,26 @@
 import React, { useRef, useState } from 'react';
 
-import { Platform } from 'react-native';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
 import { manipulateAsync } from 'expo-image-manipulator';
 
 import Camera from '@hashiprobr/expo-camera';
-
-import postpone from './postpone';
+import { useMount } from '@hashiprobr/react-use-mount-and-update';
 
 export default function useCamera(crop) {
     const cameraRef = useRef();
-    const forbidRef = useRef(true);
-    const repeatRef = useRef(Platform.OS === 'android');
+    const blockedRef = useRef(true);
+    const readyRef = useRef(false);
+    const idleRef = useRef(true);
 
     const [active, setActive] = useState(false);
-    const [taking, setTaking] = useState(false);
 
     async function activate() {
         if (!active) {
-            if (forbidRef.current) {
+            if (blockedRef.current) {
                 const response = await Camera.requestCameraPermissionsAsync();
                 if (response.granted) {
-                    forbidRef.current = false;
+                    blockedRef.current = false;
                 } else {
                     throw new Error('Could not receive permission');
                 }
@@ -31,47 +30,36 @@ export default function useCamera(crop) {
     }
 
     function deactivate() {
-        if (active) {
+        if (idleRef.current && active) {
             setActive(false);
         }
     }
 
-    async function doTake() {
-        const original = await cameraRef.current.takePictureAsync();
-        if (crop) {
-            const { uri, width, height } = original;
-            const action = {};
-            if (width < height) {
-                action.originX = 0;
-                action.originY = (height - width) / 2;
-                action.width = width;
-                action.height = width;
-            } else {
-                action.originX = (width - height) / 2;
-                action.originY = 0;
-                action.width = height;
-                action.height = height;
-            }
-            const cropped = await manipulateAsync(uri, [{ crop: action }]);
-            return cropped.uri;
-        } else {
-            return original.uri;
-        }
-    }
-
     async function take() {
-        if (active && cameraRef.current) {
+        if (cameraRef.current && readyRef.current && idleRef.current && active) {
             let uri;
-            setTaking(true);
-            try {
-                if (repeatRef.current) {
-                    repeatRef.current = false;
-                    cameraRef.current.takePictureAsync();
+            idleRef.current = false;
+            const original = await cameraRef.current.takePictureAsync();
+            if (crop) {
+                const { width, height } = original;
+                const action = {};
+                if (width < height) {
+                    action.originX = 0;
+                    action.originY = (height - width) / 2;
+                    action.width = width;
+                    action.height = width;
+                } else {
+                    action.originX = (width - height) / 2;
+                    action.originY = 0;
+                    action.width = height;
+                    action.height = height;
                 }
-                uri = await postpone(doTake, 1000);
-            } finally {
-                setTaking(false);
+                const cropped = await manipulateAsync(original.uri, [{ crop: action }]);
+                uri = cropped.uri;
+            } else {
+                uri = original.uri;
             }
+            idleRef.current = true;
             return uri;
         } else {
             return null;
@@ -79,19 +67,31 @@ export default function useCamera(crop) {
     }
 
     function Preview(props) {
+        function onCameraReady() {
+            readyRef.current = true;
+            if (props.onCameraReady) {
+                props.onCameraReady();
+            }
+        }
+        useMount(() => {
+            return () => readyRef.current = false;
+        });
         return (
             <Camera
                 {...props}
                 ref={cameraRef}
                 crop={crop}
+                onCameraReady={onCameraReady}
             />
         );
     }
 
+    hoistNonReactStatics(Preview, Camera);
+
     return [
         {
+            ref: cameraRef,
             active,
-            taking,
             activate,
             deactivate,
             take,

@@ -1,6 +1,6 @@
 {
   "name": "@hashiprobr/expo-use-camera",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TODO",
   "keywords": [
     "JavaScript",
@@ -27,8 +27,10 @@
   },
   "peerDependencies": {
     "@hashiprobr/expo-camera": "^1.0.8",
+    "@hashiprobr/react-use-mount-and-update": "^1.0.4",
     "expo": "^43.0.5",
     "expo-image-manipulator": "^10.1.2",
+    "hoist-non-react-statics": "^3.3.2",
     "react": "^17.0.1",
     "react-native": ">=0.64.3"
   }
