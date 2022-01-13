@@ -105,7 +105,7 @@ import useCamera from '@hashiprobr/expo-use-camera';
 export default function MyComponent() {
     const [uri, setUri] = useState();
 
-    const [camera, Preview] = useCamera(true);
+    const [camera, Camera] = useCamera(true);
 
     async function onPressOpen() {
         try {
@@ -141,7 +141,7 @@ export default function MyComponent() {
             }}
         >
             {camera.active ? (
-                <Preview
+                <Camera
                     style={{
                         flexGrow: 1,
                         alignSelf: 'stretch',
@@ -157,7 +157,7 @@ export default function MyComponent() {
                         <Button title="take" onPress={onPressTake} />
                         <Button title="close" onPress={onPressClose} />
                     </View>
-                </Preview>
+                </Camera>
             ) : (
                 <>
                     {uri && (
