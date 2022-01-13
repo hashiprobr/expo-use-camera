@@ -103,7 +103,7 @@ import { View, Image, Button } from 'react-native';
 import useCamera from '@hashiprobr/expo-use-camera';
 
 export default function MyComponent() {
-    const [uri, setUri] = useState(null);
+    const [uri, setUri] = useState();
 
     const [camera, Preview] = useCamera(true);
 
