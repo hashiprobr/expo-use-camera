@@ -37,11 +37,11 @@ export default function useCamera(crop) {
 
     async function take() {
         if (cameraRef.current && readyRef.current && idleRef.current && active) {
-            let uri;
+            let source;
             idleRef.current = false;
-            const original = await cameraRef.current.takePictureAsync();
+            source = await cameraRef.current.takePictureAsync();
             if (crop) {
-                const { width, height } = original;
+                const { uri, width, height } = source;
                 const action = {};
                 if (width < height) {
                     action.originX = 0;
@@ -54,15 +54,10 @@ export default function useCamera(crop) {
                     action.width = height;
                     action.height = height;
                 }
-                const cropped = await manipulateAsync(original.uri, [{ crop: action }]);
-                uri = cropped.uri;
-            } else {
-                uri = original.uri;
+                source = await manipulateAsync(uri, [{ crop: action }]);
             }
             idleRef.current = true;
-            return uri;
-        } else {
-            return null;
+            return source;
         }
     }
 
