@@ -28,6 +28,7 @@
   "peerDependencies": {
     "@hashiprobr/expo-camera": "^1.0.8",
     "expo": "^43.0.5",
+    "expo-image-manipulator": "^10.1.2",
     "react": "^17.0.1",
     "react-native": ">=0.64.3"
   }
