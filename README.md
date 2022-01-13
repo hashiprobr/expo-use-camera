@@ -2,7 +2,7 @@ expo-use-camera
 ===============
 
 **A React Hook for simplifying basic usage of
-[expo-camera](https://docs.expo.dev/versions/v44.0.0/sdk/camera/)**
+[expo-camera](https://docs.expo.dev/versions/latest/sdk/camera/)**
 
 This hook receives a boolean `crop` and returns an object and an component.
 
@@ -25,7 +25,7 @@ If `crop` is true, the picture is cropped to a square area.
 
 The component is a [modified
 version](https://www.npmjs.com/package/@hashiprobr/expo-camera) of
-[expo-camera](https://docs.expo.dev/versions/v44.0.0/sdk/camera/), but without
+[expo-camera](https://docs.expo.dev/versions/latest/sdk/camera/), but without
 two props: `ref`, because it is already available in the object, and `crop`,
 because it is already defined by the hook argument.
 
