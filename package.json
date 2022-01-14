@@ -1,7 +1,7 @@
 {
   "name": "@hashiprobr/expo-use-camera",
-  "version": "1.0.8",
-  "description": "TODO",
+  "version": "1.0.9",
+  "description": "A React Hook for simplifying basic usage of expo-camera",
   "keywords": [
     "JavaScript",
     "React",
