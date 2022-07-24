@@ -35,13 +35,13 @@ Peer dependencies
 
 ``` json
 {
-    "@hashiprobr/expo-camera": "^1.0.8",
-    "@hashiprobr/react-use-mount-and-update": "^1.0.4",
-    "expo": "^43.0.5",
-    "expo-image-manipulator": "^10.1.2",
-    "hoist-non-react-statics": "^3.3.2",
-    "react": "^17.0.1",
-    "react-native": ">=0.64.3"
+    "@hashiprobr/expo-camera": "1.0.9",
+    "@hashiprobr/react-use-mount-and-update": "1.0.5",
+    "expo": "45.0.0",
+    "expo-image-manipulator": "10.3.1",
+    "hoist-non-react-statics": "3.3.2",
+    "react": "17.0.2",
+    "react-native": "0.68.2"
 }
 ```
 
