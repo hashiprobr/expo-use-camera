@@ -1,6 +1,8 @@
 expo-use-camera
 ===============
 
+[PROJECT DISCONTINUED]
+
 **A React Hook for simplifying basic usage of
 [expo-camera](https://docs.expo.dev/versions/latest/sdk/camera/)**
 
